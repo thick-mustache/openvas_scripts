@@ -47,7 +47,7 @@ try:
                 "message":"teste",
                 "notice":"2",
                 "from_address":"exemplo@gmail.com",
-                "subject:""Teste Task",
+                "subject":"Teste Task",
                 "notice_attach_format":"c402cc3e-b531-11e1-9163-406186ea4fc5",
                 "to_address":"exemplo2@gmail.com",
             })      
