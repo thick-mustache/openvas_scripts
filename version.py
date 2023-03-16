@@ -9,14 +9,13 @@ path = '/tmp/gvm/gvmd/gvmd.sock'
 connection = UnixSocketConnection(path=path)
 transform = EtreeCheckCommandTransform()
 
-
 try:
 
     with Gmp(connection=connection, transform=transform) as gmp:
 
-        version = gmp.get_version().get('session')
+        version = gmp.get_version()
 
-        print(version)
+        print(version[0].text)
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
