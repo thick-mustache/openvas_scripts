@@ -1,5 +1,5 @@
 import sys
-import xml.etree.ElementInclude as ET
+from lxml import etree
 from gvm.connections import UnixSocketConnection
 from gvm.errors import GvmError
 from gvm.protocols.gmpv224 import Gmp
@@ -16,13 +16,11 @@ try:
         
         targets = gmp.get_targets()
 
-        tree = ET.formstring(targets)
-
-        formatted = ET.tostring(tree, encoding='unicode', method='xml')
+        formatted = etree.tostring(etree.fromstring(targets), pretty_print=True).decode()
 
         print(formatted)
             
-    for target in targets:
+    '''for target in targets:
         print("Target:")
         for key, value in target.items():
             if isinstance(value, list):
@@ -30,7 +28,7 @@ try:
                 for subvalue in value:
                     print(f"\t\t{subvalue}")
             else:
-                print(f"\t{key}: {value}")
+                print(f"\t{key}: {value}")'''
 
             
 
