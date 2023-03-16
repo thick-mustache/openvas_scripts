@@ -5,7 +5,7 @@ from datetime import datetime
 from icalendar import Calendar, Event
 from gvm.connections import UnixSocketConnection
 from gvm.errors import GvmError
-from gvm.protocols.gmpv224 import Gmp, AliveTest
+from gvm.protocols.gmpv224 import Gmp, AliveTest, AlertCondition, AlertEvent, AlertMethod
 from gvm.transforms import EtreeCheckCommandTransform
 
 path = '/tmp/gvm/gvmd/gvmd.sock'
@@ -39,7 +39,18 @@ try:
         
         gmp.create_schedule(name=nome_sch, timezone='UTC',  icalendar=cal.to_ical())
 
-        #gmp.create_alert(name=nome_alert,event=)      
+        condition =  AlertCondition.from_string('ALWAYS')
+        aevent = AlertEvent.from_string('TASK_RUN_STATUS_CHANGED')
+        method = AlertMethod.from_string('EMAIL')
+
+        gmp.create_alert(name=nome_alert,event=aevent, event_data={"status": "Done"},condition=condition,method=method,  method_data={
+                """teste""": "message",
+                "2": "notice",
+                sender_email: "rss.silva14@gmail.com",
+                "Teste Task": "subject",
+                "c402cc3e-b531-11e1-9163-406186ea4fc5": "notice_attach_format",
+                recipient_email: "gvm@rnp.br",
+            })      
         
         #gmp.create_task(name=nome_task, target_id=, alert_ids=, schedule_id=, config_id= , scanner_id=, alterable=1, )
 
