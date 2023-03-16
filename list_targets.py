@@ -19,18 +19,6 @@ try:
         formatted = etree.tostring(etree.fromstring(targets), pretty_print=True).decode()
 
         print(formatted)
-            
-    '''for target in targets:
-        print("Target:")
-        for key, value in target.items():
-            if isinstance(value, list):
-                print(f"\t{key}:")
-                for subvalue in value:
-                    print(f"\t\t{subvalue}")
-            else:
-                print(f"\t{key}: {value}")'''
-
-            
-
+                     
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
