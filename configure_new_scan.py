@@ -44,12 +44,12 @@ try:
         method = AlertMethod.from_string('EMAIL')
 
         gmp.create_alert(name=nome_alert,event=aevent, event_data={"status": "Done"},condition=condition,method=method,  method_data={
-                """teste""": "message",
-                "2": "notice",
-                "rss.silva14@gmail.com":"from_address",
-                "Teste Task": "subject",
-                "c402cc3e-b531-11e1-9163-406186ea4fc5": "notice_attach_format",
-                "gvm@rnp.br": "to_address",
+                "message":"teste",
+                "notice":"2",
+                "from_address":"exemplo@gmail.com",
+                "subject:""Teste Task",
+                "notice_attach_format":"c402cc3e-b531-11e1-9163-406186ea4fc5",
+                "to_address":"exemplo2@gmail.com",
             })      
         
         #gmp.create_task(name=nome_task, target_id=, alert_ids=, schedule_id=, config_id= , scanner_id=, alterable=1, )
