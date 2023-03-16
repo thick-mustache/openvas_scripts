@@ -1,5 +1,5 @@
 import sys
-
+import xml.etree.ElementInclude as ET
 from gvm.connections import UnixSocketConnection
 from gvm.errors import GvmError
 from gvm.protocols.gmpv224 import Gmp
@@ -15,6 +15,12 @@ try:
         gmp.authenticate('admin', 'admin')
         
         targets = gmp.get_targets()
+
+        tree = ET.formstring(targets)
+
+        formatted = ET.tostring(tree, encoding='unicode', method='xml')
+
+        print(formatted)
             
     for target in targets:
         print("Target:")
@@ -25,6 +31,8 @@ try:
                     print(f"\t\t{subvalue}")
             else:
                 print(f"\t{key}: {value}")
+
+            
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
