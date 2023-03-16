@@ -2,7 +2,7 @@ import sys
 
 from gvm.connections import UnixSocketConnection
 from gvm.errors import GvmError
-from gvm.protocols.gmpv224 import Gmp
+from gvm.protocols.gmpv224 import Gmp, AliveTest
 from gvm.transforms import EtreeCheckCommandTransform
 
 path = '/tmp/gvm/gvmd/gvmd.sock'
@@ -17,7 +17,9 @@ try:
     with Gmp(connection=connection, transform=transform) as gmp:
         gmp.authenticate('admin', 'admin')
         
-        gmp.create_target(name=nome, hosts='192.168.0.1', port_list_id=ports, alive_test='Consider Alive')
+        alive = AliveTest.from_string('CONSIDER_ALIVE')
+
+        gmp.create_target(name=nome, hosts='192.168.0.1', port_list_id=ports, alive_test=alive)
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
