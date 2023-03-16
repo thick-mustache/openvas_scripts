@@ -19,7 +19,7 @@ try:
         
         alive = AliveTest.from_string('CONSIDER_ALIVE')
 
-        gmp.create_target(name=nome, hosts='192.168.0.1', port_list_id=ports, alive_test=alive)
+        gmp.create_target(name=nome, hosts=['192.168.0.1'], port_list_id=ports, alive_test=alive)
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
