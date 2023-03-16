@@ -17,7 +17,7 @@ try:
     with Gmp(connection=connection, transform=transform) as gmp:
         gmp.authenticate('admin', 'admin')
         
-        gmp.create_target(name=nome, hosts='192.168.0.1', port_list_id=ports, alive_test='AliveTest')
+        gmp.create_target(name=nome, hosts='192.168.0.1', port_list_id=ports, alive_test='Consider Alive')
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
