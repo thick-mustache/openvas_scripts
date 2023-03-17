@@ -29,7 +29,7 @@ try:
 
         gmp.create_target(name=nome_target, hosts=['192.168.0.1'], port_list_id=ports, alive_test=alive)
 
-        tgt_object = gmp.get_targets(filter=f"name={nome_target}")
+        tgt_object = gmp.get_targets(filter_string=f"name={nome_target}")
         target = tgt_object.xpath("target")
         target_id = target[0].get("id", "no id found")
 
@@ -44,7 +44,7 @@ try:
         
         gmp.create_schedule(name=nome_sch, timezone='UTC',  icalendar=cal.to_ical())
 
-        sch_object = gmp.get_schedules(filter=f"name={nome_sch}")
+        sch_object = gmp.get_schedules(filter_string=f"name={nome_sch}")
         schedule = sch_object.xpath("schedule")
         schedule_id = schedule[0].get("id", "no id found")
 
@@ -60,7 +60,7 @@ try:
                 "notice_attach_format":"c402cc3e-b531-11e1-9163-406186ea4fc5",
                 "to_address":"exemplo2@gmail.com",
             })
-        alert_object = gmp.get_alerts(filter=f"name={nome_alert}")
+        alert_object = gmp.get_alerts(filter_string=f"name={nome_alert}")
         alert = alert_object.xpath("alert")
         alert_id = alert[0].get("id", "no id found")      
         
