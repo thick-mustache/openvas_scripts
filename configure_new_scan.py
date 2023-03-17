@@ -64,7 +64,7 @@ try:
         alert = alert_object.xpath("alert")
         alert_id = alert[0].get("id", "no id found")      
         
-        gmp.create_task(name=nome_task, target_id=target_id, alert_ids=alert_id, schedule_id=schedule_id, config_id=conf_id, scanner_id=scan_id, alterable=1)
+        gmp.create_task(name=nome_task, target_id=target_id, alert_ids=[alert_id], schedule_id=schedule_id, config_id=conf_id, scanner_id=scan_id, alterable=1)
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
