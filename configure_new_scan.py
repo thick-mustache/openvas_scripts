@@ -12,12 +12,13 @@ path = '/tmp/gvm/gvmd/gvmd.sock'
 connection = UnixSocketConnection(path=path)
 transform = EtreeCheckCommandTransform()
 
-nome = 'teste1'
+nome_target = 'teste1'
 nome_task = 'task_teste'
 nome_sch = 'teste_sch'
 nome_alert = 'teste_aler'
 ports = '33d0cd82-57c6-11e1-8ed1-406186ea4fc5'
-
+conf_id = 'daba56c8-73ec-11df-a475-002264764cea'
+scan_id = '08b69003-5fc2-4037-a479-93b440211c73'
 
 try:
 
@@ -26,7 +27,11 @@ try:
         
         alive = AliveTest.from_string('CONSIDER_ALIVE')
 
-        gmp.create_target(name=nome, hosts=['192.168.0.1'], port_list_id=ports, alive_test=alive)
+        gmp.create_target(name=nome_target, hosts=['192.168.0.1'], port_list_id=ports, alive_test=alive)
+
+        tgt_object = gmp.get_targets(filter=f"name={nome_target}")
+        target = tgt_object.xpath("target")
+        target_id = target[0].get("id", "no id found")
 
         cal = Calendar()
         cal.add('prodid', '-//Foo Bar//')
@@ -39,6 +44,10 @@ try:
         
         gmp.create_schedule(name=nome_sch, timezone='UTC',  icalendar=cal.to_ical())
 
+        sch_object = gmp.get_schedules(filter=f"name={nome_sch}")
+        schedule = sch_object.xpath("schedule")
+        schedule_id = schedule[0].get("id", "no id found")
+
         condition =  AlertCondition.from_string('ALWAYS')
         aevent = AlertEvent.from_string('TASK_RUN_STATUS_CHANGED')
         method = AlertMethod.from_string('EMAIL')
@@ -50,9 +59,12 @@ try:
                 "subject":"Teste Task",
                 "notice_attach_format":"c402cc3e-b531-11e1-9163-406186ea4fc5",
                 "to_address":"exemplo2@gmail.com",
-            })      
+            })
+        alert_object = gmp.get_alerts(filter=f"name={nome_alert}")
+        alert = alert_object.xpath("alert")
+        alert_id = alert[0].get("id", "no id found")      
         
-        #gmp.create_task(name=nome_task, target_id=, alert_ids=, schedule_id=, config_id= , scanner_id=, alterable=1, )
+        gmp.create_task(name=nome_task, target_id=target_id, alert_ids=alert_id, schedule_id=schedule_id, config_id=conf_id, scanner_id=scan_id, alterable=1)
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
