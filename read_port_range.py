@@ -18,10 +18,14 @@ try:
         gmp.authenticate('admin', 'admin')
 
         port_config = gmp.get_port_list('id')
-
-        for element in port_config[0].iter("start", "end"):
+        
+        for element in port_config[0].iter("start"):
             port_ranges[element.getparent().attrib.get("id")] = {}
-            port_ranges[element.getparent().attrib.get("id")][element.tag] = {element.text}
+        
+        for element in port_config[0].iter("start", "end"):
+            port_ranges[element.getparent().attrib.get("id")][element.tag] = element.text
+            
+        print(port_ranges)
 
 except GvmError as e:
     print('An error occurred', e, file=sys.stderr)
