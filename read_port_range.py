@@ -22,7 +22,7 @@ try:
         for element in port_config[0].iter("start"):
             port_ranges[element.getparent().attrib.get("id")] = {}
         
-        for element in port_config[0].iter("start", "end"):
+        for element in port_config[0].iter("start", "end", "type"):
             port_ranges[element.getparent().attrib.get("id")][element.tag] = element.text
             
         print(port_ranges)
